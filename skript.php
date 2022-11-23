@@ -11,6 +11,8 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 
 $sql = "SELECT * FROM users";
 $result = $conn->query($sql);
+
+
 $login_success = false;
 $full_name = "";
 if ($result->num_rows > 0) {
@@ -24,6 +26,11 @@ if ($result->num_rows > 0) {
         }
     }
 } else {
-    echo "0 results";
+    echo "login fail";
 }
 $conn->close();
+if ($login_success) {
+    session_start();
+    $_SESSION["username"] = $_POST["username"];
+}
+echo "<a href='upload.html'>Ladda upp fil</a>";
